@@ -1,5 +1,7 @@
 package com.ssnyarii.todolist
 
+import android.content.Intent
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -23,7 +25,7 @@ class ToDoAdapter(val todos: List<String>) : RecyclerView.Adapter<ToDoAdapter.To
     class ToDoHolder(v: View) : RecyclerView.ViewHolder(v), View.OnClickListener {
 
         var view : View = v
-        var title : String = ""
+        private lateinit var title : String
 
         init {
             v.setOnClickListener(this)
@@ -35,7 +37,10 @@ class ToDoAdapter(val todos: List<String>) : RecyclerView.Adapter<ToDoAdapter.To
         }
 
         override fun onClick(v: View?) {
+            val intent = Intent(view.context, completeTodoActivity::class.java)
+            intent.putExtra("title", title)
 
+            startActivity(view.context, intent, null)
         }
 
     }
